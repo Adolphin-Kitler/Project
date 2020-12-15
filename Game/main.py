@@ -15,9 +15,9 @@ rec_RL = pygame.image.load(os.path.join("weapons", "rect_red_laser.png"))
 ship1 = pygame.image.load(os.path.join("ships", "ship_1.png"))
 ship2 = pygame.image.load(os.path.join("ships", "ship_2.png"))
 
-RED_SPACE_SHIP = pygame.image.load(os.path.join("ships", "pixel_ship_red_small.png"))
-GREEN_SPACE_SHIP = pygame.image.load(os.path.join("ships", "pixel_ship_green_small.png"))
-BLUE_SPACE_SHIP = pygame.image.load(os.path.join("ships", "pixel_ship_blue_small.png"))
+RED_SPACE_SHIP = pygame.image.load(os.path.join("ships", "red_ship.png"))
+GREEN_SPACE_SHIP = pygame.image.load(os.path.join("ships", "green_ship.png"))
+BLUE_SPACE_SHIP = pygame.image.load(os.path.join("ships", "blue_ship.png"))
 
 RED_LASER = pygame.image.load(os.path.join("weapons", "pixel_laser_red.png"))
 GREEN_LASER = pygame.image.load(os.path.join("weapons", "pixel_laser_green.png"))
@@ -118,11 +118,8 @@ class Player(Ship):
         self.healthbar(window)
 
     def healthbar(self, window):
-        pygame.draw.rect(window, (255, 0, 0),
-                         (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width(), 10))
-        pygame.draw.rect(window, (0, 255, 0), (
-        self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width() * (self.health / self.max_health),
-        10))
+        pygame.draw.rect(window, (255, 0, 0), (self.x, self.y+self.ship_img.get_height()+10, self.ship_img.get_width(), 10))
+        pygame.draw.rect(window, (0, 255, 0), (self.x, self.y+self.ship_img.get_height()+10, self.ship_img.get_width() * (self.health / self.max_health), 10))
 
 
 class Enemy(Ship):
@@ -142,7 +139,7 @@ class Enemy(Ship):
 
     def shoot(self):
         if self.cool_down_counter == 0:
-            laser = Laser(self.x - 20, self.y, self.laser_img)
+            laser = Laser(self.x+30, self.y, self.laser_img)
             self.lasers.append(laser)
             self.cool_down_counter = 1
 
@@ -190,7 +187,7 @@ def main():
         player.draw(WIN)
 
         if lost:
-            lost_label = lost_font.render("You Lost!!", 1, (255, 255, 255))
+            lost_label = lost_font.render("GAMEOVER!!", 1, (255, 255, 255))
             WIN.blit(lost_label, (Width / 2 - lost_label.get_width() / 2, 350))
 
         pygame.display.update()
